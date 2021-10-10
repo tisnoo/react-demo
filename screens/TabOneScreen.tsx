@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Dimensions, StyleSheet, View } from 'react-native';
+import { Button, Dimensions, StyleSheet, TouchableNativeFeedback, View } from 'react-native';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
 import EditScreenInfo from '../components/EditScreenInfo';
@@ -8,9 +8,11 @@ import { RootTabScreenProps } from '../types';
 import axios from 'axios';
 import List from '../components/List';
 import Inputs from '../components/input';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ScrollViewExample from '../components/ScrollView';
 import ImagesExample from '../components/ImageExample';
+import Animations from '../components/Animations';
+import ActivityIndicatorExample from '../components/ActivityIndicator';
 
 export class TabOneScreen extends Component {
 
@@ -18,14 +20,20 @@ export class TabOneScreen extends Component {
         articleText: "State test",
     }
 
+    componentDidMount = () =>{
+        this.getNews();
+    }
+
     render() {
         return (
             <View style={styles.container}>
-                {/* <PresentationalComponent updateState={this.getNews} myState={this.state.articleText} ></PresentationalComponent> */}
-                {/* <List></List> */}
-                {/* <Inputs></Inputs> */}
-                <ScrollViewExample></ScrollViewExample>
-                <ImagesExample></ImagesExample>
+                <ActivityIndicatorExample></ActivityIndicatorExample>
+                {/* <PresentationalComponent updateState={this.getNews} myState={this.state.articleText} ></PresentationalComponent>
+                <TouchableOpacity><Text>Button</Text></TouchableOpacity>
+                <TouchableNativeFeedback><Text>Button</Text></TouchableNativeFeedback>
+                <Animations></Animations>
+                <List></List>
+                <Inputs></Inputs> */}
             </View> 
         );
     }

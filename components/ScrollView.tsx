@@ -19,6 +19,7 @@ class ScrollViewExample extends Component {
             { 'name': 'Olivia', 'id': 12 }
         ]
     }
+
     render() {
         const list = this.state.names.map((item, index) => (
             <View key={item.id} style={styles.item}>
