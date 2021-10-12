@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, Image, View, StyleSheet, ScrollView } from 'react-native';
-import ImagesExample from './ImageExample';
+import NewsImageComponent from './NewsImage';
 
 class ScrollViewExample extends Component {
     state = {
@@ -27,7 +27,7 @@ class ScrollViewExample extends Component {
             </View>
         ));
 
-        list.push(<ImagesExample key="unique"></ImagesExample>)
+        list.push(<NewsImageComponent key="unique"></NewsImageComponent>)
 
 
         return (
