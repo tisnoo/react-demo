@@ -18,7 +18,7 @@ const NewsFeedList = (props: any) => {
             </View>)
           }
         data={props.newsItems}
-        renderItem={({item, index, separators}) => <NewsCardComponent key={item.key} newsHeader={item.header} imageURL={item.imageURL}></NewsCardComponent>}
+        renderItem={({item, index, separators}) => <NewsCardComponent key={item.key} newsItem={item} isLoading={props.isLoading}></NewsCardComponent>}
       />
       </View>
    )

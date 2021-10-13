@@ -19,20 +19,44 @@ import NewsFeedList from '../components/NewsFeedList';
 export class TabOneScreen extends Component {
 
     state = {
-        newsArticles: []
+        newsArticles: [
+            new NewsItem("", "", "", "", "1"),
+            new NewsItem("", "", "", "", "2"),
+            new NewsItem("", "", "", "", "3"),
+            new NewsItem("", "", "", "", "4"),
+            new NewsItem("", "", "", "", "5"),
+            new NewsItem("", "", "", "", "6"),
+            new NewsItem("", "", "", "", "7"),
+            new NewsItem("", "", "", "", "8"),
+            new NewsItem("", "", "", "", "9"),
+            new NewsItem("", "", "", "", "10"),
+            new NewsItem("", "", "", "", "11"),
+            new NewsItem("", "", "", "", "12"),
+            new NewsItem("", "", "", "", "13"),
+            new NewsItem("", "", "", "", "14"),
+            new NewsItem("", "", "", "", "15"),
+            new NewsItem("", "", "", "", "16"),
+            new NewsItem("", "", "", "", "17"),
+            new NewsItem("", "", "", "", "18"),
+            new NewsItem("", "", "", "", "19"),
+            new NewsItem("", "", "", "", "20"),
+        ],
+        isLoading: true,
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getNews();
     }
 
     render() {
+
         return (
             <View style={styles.container}>
-                <NewsFeedList
-                    newsItems={this.state.newsArticles}
-                />
-            </View>
+            <NewsFeedList
+                isLoading={this.state.isLoading}
+                newsItems={this.state.newsArticles}
+            />
+        </View>
         );
     }
 
@@ -56,13 +80,14 @@ export class TabOneScreen extends Component {
     }
 
     setArticles = (articles: any) => {
-        
-        const newsItems = articles["articles"].map((item: any, index: any) => {
-            return new NewsItem(item["title"], item["urlToImage"] ?? "https://www.tekstmaatje.nl/wp-content/uploads/2020/06/placeholder.png", item["content"], index.toString());
+
+        var newsItems = articles["articles"].map((item: any, index: any) => {
+            return new NewsItem(item["title"], item["urlToImage"] ?? "https://www.tekstmaatje.nl/wp-content/uploads/2020/06/placeholder.png", item["content"], item["author"], index.toString());
         });
 
-        this.setState({ newsArticles: newsItems })
-
+        newsItems = newsItems.filter((item: NewsItem) => item.body != null);
+        
+        setTimeout(() => {this.setState({ newsArticles: newsItems, isLoading: false })}, 1000)
     }
 
 }
