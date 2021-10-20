@@ -2,53 +2,61 @@ import React, { Component } from 'react';
 import { Text, Image, View, StyleSheet, ScrollView, Touchable } from 'react-native';
 import NewsImageComponent from './NewsImage';
 
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import SkeletonContent from 'react-native-skeleton-content';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import NewsItem from '../models/NewsItem';
+import {RootTabParamList } from '../types';
 
+
+type authScreenProp = StackNavigationProp<RootTabParamList, 'TabOne'>;
 
 const NewsCardComponent = (props: any) => {
+    
+  const navigation = useNavigation<authScreenProp>();
+  
     return (
-        <TouchableOpacity onPress={() => openNewsArticle(props)}>
-        <View style={[styles.container, {
-            flexDirection: "row"
-        }]}>
-            <View style={{ flex: 3, }}>
-                <SkeletonContent
-                    containerStyle={styles.container}
-                    isLoading={props.isLoading}
-                    layout={[
-                        { key: 'img', width: 125, height: 95, marginBottom: 6, },
-                    ]}
-                >
-                    <NewsImageComponent imageURL={props.newsItem.imageURL}></NewsImageComponent>
-                </SkeletonContent>
+        <TouchableOpacity onPress={() => openNewsArticle(navigation, props.newsItem)}>
+            <View style={[styles.container, {
+                flexDirection: "row"
+            }]}>
+                <View style={{ flex: 3, }}>
+                    <SkeletonContent
+                        containerStyle={styles.container}
+                        isLoading={props.isLoading}
+                        layout={[
+                            { key: 'img', width: 125, height: 95, marginBottom: 6, },
+                        ]}
+                    >
+                        <NewsImageComponent imageURL={props.newsItem.imageURL}></NewsImageComponent>
+                    </SkeletonContent>
+                </View>
+                <View style={{ flex: 5 }}>
+                    <SkeletonContent
+                        isLoading={props.isLoading}
+                        layout={[
+                            { key: 'someId', width: 220, height: 20, marginBottom: 6, },
+                            { key: 'someOtherId', width: 220, height: 20, marginBottom: 6 },
+                            { key: '3', width: 220, height: 20, marginBottom: 6 },
+                        ]}
+                    >
+                        <Text numberOfLines={3} style={styles.heading}>
+                            {props.newsItem.header}
+                        </Text>
+                    </SkeletonContent>
+                </View>
             </View>
-            <View style={{flex:5}}>
-                <SkeletonContent 
-                    isLoading={props.isLoading}
-                    layout={[
-                        { key: 'someId', width: 220, height: 20, marginBottom: 6, },
-                        { key: 'someOtherId', width: 220, height: 20, marginBottom: 6 },
-                        { key: '3', width: 220, height: 20, marginBottom: 6 },
-                    ]}
-                >
-                    <Text numberOfLines={3} style={styles.heading}>
-                        {props.newsItem.header}
-                    </Text>
-                </SkeletonContent>
-            </View>
-        </View>
         </TouchableOpacity>
     )
 }
 
 export default NewsCardComponent;
 
-const openNewsArticle = (props:any) => {
-    props.navigation.navigate(
-        'TabTwo',
-      );
+const openNewsArticle = (navigation: any, newsItem: NewsItem) => {
+    navigation.navigate(
+        'NewsItem', {url: newsItem.url}
+    );
 }
 
 const styles = StyleSheet.create({

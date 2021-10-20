@@ -12,8 +12,10 @@ const NewsFeedList = (props: any) => {
            ItemSeparatorComponent={
             () => (<View 
                style={{
-                 borderBottomColor: '#D8D8D8',
+                 borderBottomColor: '#D3D3D3',
                  borderBottomWidth: 1,
+                 marginEnd: 20,
+                 marginStart: 20,
                }}>
             </View>)
           }

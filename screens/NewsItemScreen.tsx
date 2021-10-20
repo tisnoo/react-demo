@@ -15,70 +15,27 @@ import ActivityIndicatorExample from '../components/ActivityIndicator';
 import NewsCardComponent from '../components/NewsCard';
 import NewsItem from '../models/NewsItem';
 import NewsFeedList from '../components/NewsFeedList';
+import WebView from 'react-native-webview';
 
-export class TabOneScreen extends Component {
+const NewsItemScreen = (props: any) => {
 
-    state = {
-        newsArticles: [],
-        isLoading: true,
-    }
+    const {url} = props.route.params;
+    
+    return (
+        <View style={styles.container}>
+        <WebView
+        source={{uri: url}}
+        >
 
-    componentDidMount() {
-        this.getNews();
-    }
-
-    render() {
-
-        return (
-            <View style={styles.container}>
-            <NewsFeedList
-                isLoading={this.state.isLoading}
-                newsItems={this.state.newsArticles}
-            />
-        </View>
-        );
-    }
+        </WebView>
+    </View>
+    );
 
 
-    getNews = () => {
-
-        // const url = 'https://newsapi.org/v2/top-headlines?' +
-        //     'country=nl&' +
-        //     'apiKey=6a00cc160b284464857f254b17801070';
-        const url = 'https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=qOEEc2Y1UvAMc6bGwtZsv7gUvQYVMzFE'
-
-        const req = new Request(url);
-        const state = this;
-        fetch(req)
-            .then(function (response) {
-                response.json().then(function (respJson) { state.setArticles(respJson) })
-            })
-
-    }
-
-
-    setArticles = (articles: any) => {
-        console.log(articles);
-        var newsItems = articles["results"].map((item: any, index: any) => {
-            
-            var image = "https://www.tekstmaatje.nl/wp-content/uploads/2020/06/placeholder.png"; 
-            
-            if (item["media"].length > 0){
-                image =  item["media"][0]["media-metadata"][2]["url"];
-            }
-
-
-            return new NewsItem(item["title"], image, item["abstract"], item["source"], index.toString(), item["url"]);
-        });
-
-        newsItems = newsItems.filter((item: NewsItem) => item.body != null);
-        
-        setTimeout(() => {this.setState({ newsArticles: newsItems, isLoading: false })}, 1000)
-    }
 
 }
 
-
+export default NewsItemScreen;
 
 
 const styles = StyleSheet.create({
